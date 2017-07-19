@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图片上传预览</title>
+    <link rel="stylesheet" href="lib/reset.css">
+    <style>
+
+    </style>
+</head>
+<body>
+	<div class="wrap">
+		<input type="file" id="file">
+
+	</div>
+	<script src="lib/jquery-3.2.1.min.js"></script>
+	<script>
+		$('#file').on('change', function(){
+			// 1.获取文件对象
+			console.log(this)
+			var localFile = this.files[0]
+			var fileType = localFile.type
+			var fileSize = localFile.size
+			console.log(fileSize/1024 + 'kb')
+			// 2.创建读取文件对象
+			var reader = new FileReader()
+			var content
+			reader.onload = function(event){
+				// 4.读取成功后的原图base64
+				content = event.target.result
+				var img = new Image()
+	            img.onload = function () {
+	            	// 5.canvas 处理
+	            	var canvas = document.createElement('canvas')
+					var ctx = canvas.getContext('2d')
+                    canvas.width = 200
+                    canvas.height = 200
+                    ctx = canvas.getContext('2d')
+					// 6. canvas 裁剪图片(把图片局部画在canvas上) 
+					ctx.drawImage(img, 0, 0)
+					// 7. 把canvas转成图片base64，并且压缩
+					var data = canvas.toDataURL('image/jpeg', 0.1)
+					// 8.把裁剪后的图放到页面上
+					console.log(data.length/1024 + 'kb')
+					var resImg = new Image()
+					resImg.src = data
+					$('.wrap').append(resImg)
+	            }
+	            // 5.把原图base64设置到img src上, 放到页面上
+	            img.src = content
+	            $('.wrap').append(img)
+			}
+			reader.onerror = function(){
+				console.log('error')
+			}
+			// 3.开始读出文件数据
+			reader.readAsDataURL(localFile, 'UTF-8')
+		})
+	</script>
+</body>
+</html>
