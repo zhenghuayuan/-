@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>标题</title>
+</head>
+<body>
+	<div class="wrap">
+		<input type="file">
+		<input type="submit" value="提交">
+	</div>
+	<script src="js/axios.min.js"></script>
+	<script>
+
+		document.querySelector("[type='file']").onchange = function(){}
+		document.querySelector("[type='submit']").onclick = function(){
+			var form = new FormData()
+	        form.append("file", document.querySelector("[type='file']").files[0])
+			var url = "/weixin/uppic"
+			axios.post(url, form)
+			.then(({data})=>{
+				console.log(data)
+			})
+			.catch(e=>{
+				console.log(e)
+			})
+		}
+	</script>
+</body>
+</html>
