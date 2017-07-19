@@ -38,3 +38,15 @@ var start = async ()=>{
 	}
 }
 start()
+
+async function all(){
+	return await new Promise((resolve, reject)=>{
+		setTimeout(()=>{
+			resolve(1)
+		}, 1000)
+	})
+}
+all()
+.then((data)=>{
+	console.log(data)
+})
