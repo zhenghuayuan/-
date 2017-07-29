@@ -1,0 +1,19 @@
+配置个人的用户名称和电子邮件地址：
+git config --global user.name "runoob"
+git config --global user.email test@runoob.com
+查看是否配置成功：
+git config --list
+
+
+生成SSH Key：
+ssh-keygen -t rsa -C "youremail@example.com"
+
+查看ssh key：
+C:\Users\52656\.ssh
+
+项目add => commit 
+git remote add origin https://github.com/zhenghuayuan/meila-cli.git
+git push -u origin master
+
+后续只需要 git push就可以提交到github
+
